@@ -1,0 +1,67 @@
+.capabilitiesSection {
+  padding: 8rem 0;
+  background-color: var(--bg-primary);
+}
+
+.header {
+  margin-bottom: 5rem;
+}
+
+.techGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+}
+
+.techCard {
+  background-color: var(--bg-card);
+  border-radius: 16px;
+  padding: 2.5rem 2rem;
+  box-shadow: var(--shadow-soft);
+  border: 1px solid rgba(0,0,0,0.02);
+}
+
+.techCategory {
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.techList {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.techList li {
+  font-size: 1.25rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.techDot {
+  width: 6px;
+  height: 6px;
+  background-color: var(--text-primary);
+  border-radius: 50%;
+  display: inline-block;
+}
+
+@media (max-width: 1024px) {
+  .techGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .techGrid {
+    grid-template-columns: 1fr;
+  }
+}

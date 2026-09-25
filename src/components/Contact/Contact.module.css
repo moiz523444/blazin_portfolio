@@ -1,0 +1,101 @@
+.contactSection {
+  padding: 8rem 0 12rem 0;
+  background-color: var(--bg-dark);
+  color: var(--bg-card);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 6rem;
+}
+
+.contactDesc {
+  font-size: 1.25rem;
+  line-height: 1.5;
+  color: rgba(255,255,255,0.6);
+  max-width: 500px;
+  margin-bottom: 4rem;
+}
+
+.contactMeta {
+  display: flex;
+  gap: 4rem;
+}
+
+.metaBlock span {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.4);
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.metaBlock p {
+  font-size: 1.125rem;
+  font-weight: 500;
+}
+
+.formCard {
+  background-color: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  padding: 3rem;
+  border-radius: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.formRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.inputGroup label {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.5);
+}
+
+.inputGroup input,
+.inputGroup select,
+.inputGroup textarea {
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(255,255,255,0.2);
+  padding: 0.5rem 0;
+  color: #fff;
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+.inputGroup input:focus,
+.inputGroup select:focus,
+.inputGroup textarea:focus {
+  outline: none;
+  border-color: #fff;
+}
+
+@media (max-width: 1024px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 4rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .formRow {
+    grid-template-columns: 1fr;
+  }
+  .formCard {
+    padding: 2rem;
+  }
+}

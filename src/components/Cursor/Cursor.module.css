@@ -1,0 +1,32 @@
+.cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--accent);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  box-shadow: 0 0 10px rgba(36, 87, 255, 0.5);
+}
+
+.cursorDot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 6px;
+  height: 6px;
+  background-color: var(--accent);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 10000;
+  box-shadow: 0 0 10px rgba(36, 87, 255, 0.8);
+}
+
+@media (max-width: 1024px) {
+  .cursor, .cursorDot {
+    display: none;
+  }
+}
