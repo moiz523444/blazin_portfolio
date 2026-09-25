@@ -1,4 +1,6 @@
+"use client";
 import styles from './Footer.module.css';
+import { motion } from 'framer-motion';
 
 export default function Footer() {
   return (
@@ -9,7 +11,7 @@ export default function Footer() {
             <h2>BLAZINCODE™</h2>
             <p className="text-muted">Premium software engineering & product design.</p>
           </div>
-          
+
           <div className={styles.links}>
             <div className={styles.linkCol}>
               <h4>Navigation</h4>
@@ -19,7 +21,7 @@ export default function Footer() {
               <a href="#process">Playbook</a>
               <a href="#about">About Us</a>
             </div>
-            
+
             <div className={styles.linkCol}>
               <h4>Social</h4>
               <a href="#">LinkedIn</a>
@@ -29,7 +31,19 @@ export default function Footer() {
             </div>
           </div>
         </div>
-        
+
+        {/* Large brand text */}
+        <motion.div
+          className={styles.bigBrand}
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <span>BLAZIN</span>
+          <span className={styles.bigBrandAccent}>CODE</span>
+        </motion.div>
+
         <div className={styles.bottomBar}>
           <p>© {new Date().getFullYear()} Blazincode. All rights reserved.</p>
           <div className={styles.bottomLinks}>

@@ -1,7 +1,18 @@
 .contactSection {
   padding: 8rem 0 12rem 0;
   background-color: var(--bg-dark);
-  color: var(--bg-card);
+  position: relative;
+}
+
+.contactSection::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, var(--accent) 50%, transparent 100%);
+  opacity: 0.2;
 }
 
 .grid {
@@ -10,10 +21,15 @@
   gap: 6rem;
 }
 
+.infoCol {
+  display: flex;
+  flex-direction: column;
+}
+
 .contactDesc {
   font-size: 1.25rem;
   line-height: 1.5;
-  color: rgba(255,255,255,0.6);
+  color: rgba(255, 255, 255, 0.55);
   max-width: 500px;
   margin-bottom: 4rem;
 }
@@ -21,14 +37,16 @@
 .contactMeta {
   display: flex;
   gap: 4rem;
+  margin-bottom: 3rem;
 }
 
 .metaBlock span {
   font-family: var(--font-mono);
   font-size: 0.75rem;
-  color: rgba(255,255,255,0.4);
+  color: rgba(255, 255, 255, 0.35);
   display: block;
   margin-bottom: 0.5rem;
+  letter-spacing: 0.05em;
 }
 
 .metaBlock p {
@@ -36,14 +54,62 @@
   font-weight: 500;
 }
 
+.responseTime {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.pulseRing {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--accent-emerald);
+  position: relative;
+  flex-shrink: 0;
+}
+
+.pulseRing::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 1px solid var(--accent-emerald);
+  animation: pulseRing 2s ease-out infinite;
+}
+
+@keyframes pulseRing {
+  0% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(2.5); opacity: 0; }
+}
+
 .formCard {
-  background-color: rgba(255,255,255,0.03);
-  border: 1px solid rgba(255,255,255,0.08);
+  background-color: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
   padding: 3rem;
-  border-radius: 24px;
+  border-radius: var(--radius-card);
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 2.5rem;
+  transition: border-color 0.5s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.formCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, var(--accent) 50%, transparent 100%);
+  opacity: 0.5;
 }
 
 .formRow {
@@ -55,13 +121,25 @@
 .inputGroup {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  position: relative;
+  gap: 0;
 }
 
 .inputGroup label {
+  position: absolute;
+  top: 0.75rem;
+  left: 0;
   font-family: var(--font-mono);
   font-size: 0.75rem;
-  color: rgba(255,255,255,0.5);
+  color: rgba(255, 255, 255, 0.4);
+  pointer-events: none;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transform-origin: left;
+  background: transparent;
+}
+
+.selectLabel {
+  top: 0.75rem;
 }
 
 .inputGroup input,
@@ -69,19 +147,127 @@
 .inputGroup textarea {
   background-color: transparent;
   border: none;
-  border-bottom: 1px solid rgba(255,255,255,0.2);
-  padding: 0.5rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 0.75rem 0 0.75rem 0;
   color: #fff;
   font-family: var(--font-sans);
   font-size: 1rem;
+  width: 100%;
+  outline: none;
   transition: border-color 0.3s ease;
 }
 
-.inputGroup input:focus,
-.inputGroup select:focus,
-.inputGroup textarea:focus {
-  outline: none;
-  border-color: #fff;
+.inputGroup select {
+  appearance: none;
+  cursor: pointer;
+}
+
+.inputGroup select option {
+  background: var(--bg-dark);
+  color: #fff;
+}
+
+.inputGroup textarea {
+  resize: none;
+}
+
+/* Floating label behavior */
+.inputGroup input:focus + label,
+.inputGroup input:not(:placeholder-shown) + label,
+.inputGroup textarea:focus + label,
+.inputGroup textarea:not(:placeholder-shown) + label {
+  top: -0.5rem;
+  font-size: 0.65rem;
+  color: var(--accent-light);
+}
+
+.inputGroup select:focus + label,
+.inputGroup select:valid + label {
+  top: -0.5rem;
+  font-size: 0.65rem;
+  color: var(--accent-light);
+}
+
+.inputLine {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.inputGroup input:focus ~ .inputLine,
+.inputGroup select:focus ~ .inputLine,
+.inputGroup textarea:focus ~ .inputLine {
+  transform: scaleX(1);
+}
+
+.submitBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-top: 1rem;
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+  color: #fff;
+  padding: 1.25rem 2rem;
+  border-radius: var(--radius-pill);
+  font-weight: 600;
+  font-size: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+  min-height: 56px;
+}
+
+.submitBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 15px 40px rgba(36, 87, 255, 0.35);
+}
+
+.submitBtn:disabled {
+  background: var(--success-soft);
+  border-color: var(--success);
+}
+
+.btnContent {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.btnArrow {
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.submitBtn:hover .btnArrow {
+  transform: translateX(6px);
+}
+
+.successMsg {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--success);
+}
+
+.checkmark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--success);
+  color: #000;
+  font-size: 0.875rem;
+  font-weight: 700;
 }
 
 @media (max-width: 1024px) {
@@ -97,5 +283,10 @@
   }
   .formCard {
     padding: 2rem;
+  gap: 2rem;
+  }
+  .contactMeta {
+    gap: 2rem;
+    flex-wrap: wrap;
   }
 }

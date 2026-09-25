@@ -7,6 +7,7 @@
   display: flex;
   justify-content: center;
   pointer-events: none;
+  transition: top 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .navContainer {
@@ -25,39 +26,58 @@
 
 .logoImage {
   object-fit: contain;
-  transition: transform 0.3s ease;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.header.scrolled .logoImage {
+  transform: scale(1.5);
 }
 
 .navPill {
   display: flex;
   align-items: center;
   gap: 2rem;
-  background-color: rgba(10, 10, 10, 0.7);
+  background-color: rgba(10, 10, 12, 0.7);
   backdrop-filter: blur(20px);
   padding: 0.75rem 2.5rem;
   border-radius: var(--radius-pill);
-  border: 1px solid rgba(255,255,255,0.1);
-  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .header.scrolled .navPill {
   padding: 0.5rem 2rem;
-  background-color: rgba(0, 0, 0, 0.9);
+  background-color: rgba(0, 0, 0, 0.85);
   border-color: var(--border-accent);
-  box-shadow: 0 10px 40px rgba(36, 87, 255, 0.1);
+  box-shadow: 0 10px 40px rgba(36, 87, 255, 0.15);
 }
 
 .link {
   font-size: 0.875rem;
   font-weight: 600;
   color: #fff;
-  opacity: 0.7;
-  transition: opacity 0.3s ease, color 0.3s ease;
+  display: inline-block;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.link::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--accent-light);
+  transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .link:hover {
-  opacity: 1;
   color: var(--accent-light);
+}
+
+.link:hover::after {
+  width: 100%;
 }
 
 .navBtn {
@@ -72,15 +92,133 @@
   font-size: 0.875rem;
   border: none;
   cursor: pointer;
-  transition: transform 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.navBtn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+  transform: translateY(100%);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .navBtn:hover {
+  color: #fff;
   transform: scale(1.05);
+}
+
+.navBtn:hover::before {
+  transform: translateY(0);
+}
+
+.navBtn > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Mobile menu toggle */
+.menuToggle {
+  display: none;
+  flex-direction: column;
+  gap: 6px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  z-index: 200;
+}
+
+.menuToggle span {
+  display: block;
+  width: 28px;
+  height: 2px;
+  background: #fff;
+  border-radius: 2px;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.menuToggle.menuOpen span:nth-child(1) {
+  transform: rotate(45deg) translate(6px, 6px);
+}
+
+.menuToggle.menuOpen span:nth-child(2) {
+  transform: rotate(-45deg) translate(6px, -6px);
+}
+
+/* Mobile menu */
+.mobileMenu {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100vh;
+  background: var(--bg-dark);
+  z-index: 150;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mobileMenuInner {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: 100%;
+  padding: 0 2rem;
+  max-width: 500px;
+}
+
+.mobileLink {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  font-size: 2.5rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: #fff;
+  transition: color 0.3s ease;
+}
+
+.mobileLink:hover {
+  color: var(--accent-light);
+}
+
+.mobileLinkNum {
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  font-weight: 400;
+}
+
+.mobileCta {
+  margin-top: 2rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+  color: #fff;
+  padding: 1.25rem 2rem;
+  border-radius: var(--radius-pill);
+  font-weight: 600;
+  font-size: 1.125rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 @media (max-width: 1024px) {
   .navPill {
     display: none;
+  }
+  .action {
+    display: none;
+  }
+  .menuToggle {
+    display: flex;
+  }
+  .header.scrolled {
+    top: 1rem;
   }
 }

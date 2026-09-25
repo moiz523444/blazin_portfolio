@@ -1,10 +1,21 @@
 .capabilitiesSection {
   padding: 8rem 0;
   background-color: var(--bg-primary);
+  position: relative;
 }
 
 .header {
   margin-bottom: 5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.headerDesc {
+  font-size: 1.125rem;
+  color: var(--text-muted);
+  max-width: 400px;
+  margin-top: 1.5rem;
 }
 
 .techGrid {
@@ -14,11 +25,47 @@
 }
 
 .techCard {
-  background-color: var(--bg-card);
-  border-radius: 16px;
+  background-color: rgba(255, 255, 255, 0.02);
+  border-radius: var(--radius-card);
   padding: 2.5rem 2rem;
-  box-shadow: var(--shadow-soft);
-  border: 1px solid rgba(0,0,0,0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cardGlow {
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at center, rgba(36, 87, 255, 0.08) 0%, transparent 50%);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+}
+
+.techCard:hover {
+  border-color: rgba(36, 87, 255, 0.3);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3), 0 0 40px rgba(36, 87, 255, 0.05);
+}
+
+.techCard:hover .cardGlow {
+  opacity: 1;
+}
+
+.techIcon {
+  font-size: 1.5rem;
+  color: var(--accent-light);
+  margin-bottom: 1.5rem;
+  opacity: 0.6;
+  transition: opacity 0.3s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.techCard:hover .techIcon {
+  opacity: 1;
+  transform: scale(1.1);
 }
 
 .techCategory {
@@ -29,6 +76,7 @@
   margin-bottom: 2rem;
   padding-bottom: 1rem;
   border-bottom: 1px solid var(--border);
+  letter-spacing: 0.05em;
 }
 
 .techList {
@@ -44,14 +92,25 @@
   display: flex;
   align-items: center;
   gap: 0.75rem;
+  transition: color 0.3s ease;
+}
+
+.techList li:hover {
+  color: var(--accent-light);
 }
 
 .techDot {
   width: 6px;
   height: 6px;
-  background-color: var(--text-primary);
+  background-color: var(--accent);
   border-radius: 50%;
   display: inline-block;
+  box-shadow: 0 0 8px var(--accent-glow);
+  transition: transform 0.3s ease;
+}
+
+.techList li:hover .techDot {
+  transform: scale(1.5);
 }
 
 @media (max-width: 1024px) {

@@ -2,6 +2,8 @@
   padding: 6rem 0 2rem 0;
   background-color: var(--bg-primary);
   border-top: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
 }
 
 .grid {
@@ -37,16 +39,43 @@
   color: var(--text-muted);
   text-transform: uppercase;
   margin-bottom: 1rem;
+  letter-spacing: 0.05em;
 }
 
 .linkCol a {
   font-size: 1rem;
   font-weight: 500;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  display: inline-block;
+  width: fit-content;
 }
 
 .linkCol a:hover {
   opacity: 0.5;
+  transform: translateX(4px);
+}
+
+.bigBrand {
+  display: flex;
+  align-items: baseline;
+  font-size: clamp(4rem, 18vw, 16rem);
+  font-weight: 800;
+  letter-spacing: -0.06em;
+  line-height: 0.9;
+  margin-bottom: 4rem;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  user-select: none;
+  overflow: hidden;
+}
+
+.bigBrandAccent {
+  background: linear-gradient(180deg, var(--accent) 0%, var(--accent-dark) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .bottomBar {
@@ -58,11 +87,20 @@
   font-size: 0.75rem;
   color: var(--text-muted);
   text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .bottomLinks {
   display: flex;
   gap: 2rem;
+}
+
+.bottomLinks a {
+  transition: color 0.3s ease;
+}
+
+.bottomLinks a:hover {
+  color: var(--accent-light);
 }
 
 @media (max-width: 768px) {
@@ -75,5 +113,8 @@
     gap: 1.5rem;
     align-items: center;
     text-align: center;
+  }
+  .bigBrand {
+    justify-content: center;
   }
 }

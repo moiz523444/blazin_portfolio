@@ -12,7 +12,8 @@ const projects = [
     name: "Northstone Real Estate",
     industry: "Architecture",
     year: "2026",
-    image: "/mockup-architecture.jpg"
+    image: "/mockup-architecture.jpg",
+    tags: ["Web Platform", "Design System", "CMS"]
   },
   {
     id: "02",
@@ -20,7 +21,8 @@ const projects = [
     name: "Auria Financial",
     industry: "FinTech App",
     year: "2026",
-    image: "/mockup-fintech.jpg"
+    image: "/mockup-fintech.jpg",
+    tags: ["Mobile App", "Dashboard", "API"]
   },
   {
     id: "03",
@@ -28,7 +30,8 @@ const projects = [
     name: "VitalCare Analytics",
     industry: "HealthTech",
     year: "2025",
-    image: "/mockup-healthcare.jpg"
+    image: "/mockup-healthcare.jpg",
+    tags: ["Data Viz", "SaaS", "Realtime"]
   },
   {
     id: "04",
@@ -36,7 +39,8 @@ const projects = [
     name: "Synthesis Creative",
     industry: "Web3 Agency",
     year: "2025",
-    image: "/mockup-agency.jpg"
+    image: "/mockup-agency.jpg",
+    tags: ["Branding", "WebGL", "CMS"]
   },
   {
     id: "05",
@@ -44,47 +48,62 @@ const projects = [
     name: "Monochrome Studio",
     industry: "High Fashion",
     year: "2024",
-    image: "/mockup-ecommerce.jpg"
+    image: "/mockup-ecommerce.jpg",
+    tags: ["E-commerce", "3D", "Motion"]
   }
 ];
 
-function ProjectCard({ project, i }: { project: any, i: number }) {
-  const ref = useRef(null);
+function ProjectCard({ project, index }: { project: typeof projects[0], index: number }) {
+  const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["0 1", "1.2 1"]
   });
-  
-  const scaleProgress = useTransform(scrollYProgress, [0, 1], [0.8, 1]);
-  const opacityProgress = useTransform(scrollYProgress, [0, 1], [0.6, 1]);
+
+  const scaleProgress = useTransform(scrollYProgress, [0, 1], [0.85, 1]);
+  const opacityProgress = useTransform(scrollYProgress, [0, 1], [0.4, 1]);
+  const imageY = useTransform(scrollYProgress, [0, 1], [60, -30]);
 
   return (
-    <motion.div 
+    <motion.div
       ref={ref}
       style={{ scale: scaleProgress, opacity: opacityProgress }}
       className={styles.projectCard}
     >
       <div className={styles.cardHeader}>
-        <div>
+        <div className={styles.cardLeft}>
+          <div className={styles.projectIndex}>{project.id}</div>
           <h3 className={styles.projectName}>{project.name}</h3>
           <div className={styles.projectTags}>
             <div className="pill-badge">{project.year}</div>
             <div className="pill-badge">{project.industry}</div>
+            {project.tags.map((tag, i) => (
+              <div key={i} className={styles.tagChip}>{tag}</div>
+            ))}
           </div>
         </div>
-        <Link href={`/work/${project.slug}`} className="btn-primary clickable">
-          View Case Study ↗
+        <Link href={`/work/${project.slug}`} className={`${styles.viewLink} clickable`}>
+          <span>View Case Study</span>
+          <span className={styles.viewArrow}>↗</span>
         </Link>
       </div>
-      
+
       <Link href={`/work/${project.slug}`} className={`${styles.visualContainer} clickable`}>
-        <Image 
-          src={project.image} 
-          alt={project.name}
-          fill
-          className={styles.projectImage}
-        />
-        <div className={styles.floatingBadge}>Live Project</div>
+        <motion.div className={styles.imageWrapper} style={{ y: imageY }}>
+          <Image
+            src={project.image}
+            alt={project.name}
+            fill
+            className={styles.projectImage}
+          />
+        </motion.div>
+        <div className={styles.imageOverlay} />
+        <div className={styles.floatingBadge}>
+          <span className="status-dot"></span> Live Project
+        </div>
+        <div className={styles.hoverHint}>
+          <span>Click to explore</span>
+        </div>
       </Link>
     </motion.div>
   );
@@ -94,16 +113,27 @@ export default function Work() {
   return (
     <section id="work" className="section-padding">
       <div className="container">
-        <div className={styles.header}>
+        <motion.div
+          className={styles.header}
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+        >
           <div className="pill-badge" style={{ borderColor: 'var(--accent)', color: 'var(--accent)' }}>
             <span className="status-dot"></span> SELECTED WORKS
           </div>
-          <h2 className="display-2" style={{ marginTop: '2rem' }}>Digital Masterpieces.</h2>
-        </div>
+          <h2 className="display-2" style={{ marginTop: '2rem' }}>
+            Digital Masterpieces.
+          </h2>
+          <p className={styles.headerDesc}>
+            A curated selection of projects where design meets engineering.
+          </p>
+        </motion.div>
 
         <div className={styles.stackContainer}>
           {projects.map((project, i) => (
-            <ProjectCard key={project.id} project={project} i={i} />
+            <ProjectCard key={project.id} project={project} index={i} />
           ))}
         </div>
       </div>

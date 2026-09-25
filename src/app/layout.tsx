@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Cursor from "@/components/Cursor/Cursor";
+import ScrollProgress from "@/components/ScrollProgress/ScrollProgress";
+import GrainOverlay from "@/components/GrainOverlay/GrainOverlay";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
@@ -18,6 +20,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.variable}`}>
+        <GrainOverlay />
+        <ScrollProgress />
         <Cursor />
         {children}
       </body>
